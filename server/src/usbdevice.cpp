@@ -108,9 +108,9 @@ void USBDevice::writeMessage(Document &msg)
 
 void USBDevice::describe(rapidjson::Value &object, Allocator &alloc)
 {
-    object.AddMember("type", mTypeString, alloc);
+    object.AddMember("type", rapidjson::StringRef(mTypeString), alloc);
     if (mSerialString) {
-        object.AddMember("serial", mSerialString, alloc);
+        object.AddMember("serial", rapidjson::StringRef(mSerialString), alloc);
     }
 
     /*

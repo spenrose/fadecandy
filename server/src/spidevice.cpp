@@ -123,7 +123,7 @@ void SPIDevice::writeMessage(Document &msg)
 
 void SPIDevice::describe(rapidjson::Value &object, Allocator &alloc)
 {
-    object.AddMember("type", mTypeString, alloc);
+    object.AddMember("type", rapidjson::StringRef(mTypeString), alloc);
 
     object.AddMember("port", mPort, alloc);
 

@@ -708,6 +708,6 @@ std::string FCDevice::getName()
 void FCDevice::describe(rapidjson::Value &object, Allocator &alloc)
 {
     USBDevice::describe(object, alloc);
-    object.AddMember("version", mVersionString, alloc);
+    object.AddMember("version", rapidjson::Value(mVersionString, alloc), alloc);
     object.AddMember("bcd_version", mDD.bcdDevice, alloc);
 }

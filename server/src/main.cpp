@@ -23,7 +23,7 @@
 
 #include "rapidjson/document.h"
 #include "rapidjson/reader.h"
-#include "rapidjson/filestream.h"
+#include "rapidjson/filereadstream.h"
 #include "fcserver.h"
 #include "version.h"
 #include <cstdio>
@@ -69,7 +69,8 @@ int main(int argc, char **argv)
             return 2;
         }
 
-        rapidjson::FileStream istr(configFile);
+        char readBuf[65536];
+        rapidjson::FileReadStream istr(configFile, readBuf, sizeof(readBuf));
         config.ParseStream<0>(istr);
 
     } else if (argc == 1) {
@@ -78,7 +79,8 @@ int main(int argc, char **argv)
         FILE *configFile = fopen(kSystemConfigPath, "r");
         if (configFile) {
             std::clog << "Using system config at " << kSystemConfigPath << "\n";
-            rapidjson::FileStream istr(configFile);
+            char readBuf[65536];
+            rapidjson::FileReadStream istr(configFile, readBuf, sizeof(readBuf));
             config.ParseStream<0>(istr);
 
         } else {

@@ -52,7 +52,6 @@ private:
 
     const Document& mConfig;
     const Value& mListen;
-    const Value& mRelay;
     const Value& mColor;
     const Value& mDevices;
     bool mVerbose;
@@ -68,7 +67,6 @@ private:
     std::vector<SPIDevice*> mSPIDevices;
 
     static void cbOpcMessage(OPC::Message &msg, void *context);
-    static void cbJsonMessage(libwebsocket *wsi, rapidjson::Document &message, void *context);
 
     static LIBUSB_CALL int cbHotplug(libusb_context *ctx, libusb_device *device, libusb_hotplug_event event, void *user_data);
 
@@ -82,12 +80,4 @@ private:
 
     bool startSPI();
     void openAPA102SPIDevice(uint32_t port, int numLights);
-
-    // JSON event broadcasters
-    void jsonConnectedDevicesChanged();
-
-    // JSON message handlers
-    void jsonListConnectedDevices(rapidjson::Document &message);
-    void jsonServerInfo(rapidjson::Document &message);
-    void jsonDeviceMessage(rapidjson::Document &message);
 };
